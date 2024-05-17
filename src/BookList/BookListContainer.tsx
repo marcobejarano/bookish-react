@@ -1,18 +1,16 @@
 import useBooks from "../hooks/useBooks";
 import BookList from "./BookList";
+import SearchBox from "./SearchBox";
 
 const BookListContainer = () => {
-  const { loading, error, books } = useBooks();
+  const { books, term, setTerm } = useBooks();
 
-  // if (loading) {
-  //   return <p>Loading...</p>
-  // }
-
-  // if (error) {
-  //   return <p>Error...</p>
-  // }
-  
-  return <BookList books={ books } />;
+  return (
+    <>
+      <SearchBox term={ term } onSearch={ setTerm } />
+      <BookList books={ books } />
+    </>
+  );
 };
 
 export default BookListContainer;
