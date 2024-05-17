@@ -1,6 +1,14 @@
 import { describe, it, expect } from 'vitest';
 import {render, screen } from '@testing-library/react';
+import { ReactElement } from 'react';
+import { MemoryRouter } from 'react-router';
 import BookList from './BookList';
+
+const renderWithRouter = (component: ReactElement | null) => {
+  return {
+    ...render(<MemoryRouter>{ component }</MemoryRouter>),
+  }
+}
 
 describe('BookList', () => {
   it('render books', async () => {
@@ -11,7 +19,7 @@ describe('BookList', () => {
       ]
     };
 
-    render(<BookList {...props} />);
+    renderWithRouter(<BookList {...props} />);
 
     const headings = await screen.findAllByRole('heading');
     headings.forEach((heading, index) => {

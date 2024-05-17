@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
-import type { Book } from "./types";
+import type { Book } from "../types";
 
 const useBooks = () => {
   const [books, setBooks] = useState<Book[]>([]);
