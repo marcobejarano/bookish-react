@@ -1,13 +1,22 @@
-import useBooks from "../hooks/useBooks";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import BookList from "./BookList";
 import SearchBox from "./SearchBox";
+import { AppDispatch } from "../redux/store";
+import { fetchBooks } from "../redux/bookListSlice";
+import { selectBooks } from "../redux/selectors";
 
 const BookListContainer = () => {
-  const { books, term, setTerm } = useBooks();
+  const books = useSelector(selectBooks);
+  const dispatch = useDispatch<AppDispatch>();
+
+  useEffect(() => {
+    dispatch(fetchBooks(''));
+  }, [dispatch]);
 
   return (
     <>
-      <SearchBox term={ term } onSearch={ setTerm } />
+      <SearchBox />
       <BookList books={ books } />
     </>
   );

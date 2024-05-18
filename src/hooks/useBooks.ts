@@ -3,10 +3,10 @@ import { useState, useEffect } from "react";
 import type { Book } from "../types";
 
 const useBooks = () => {
-  const [term, setTerm] = useState<string>('');
   const [books, setBooks] = useState<Book[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<boolean>(false);
+  const [term, setTerm] = useState<string>('');
 
   useEffect(() => {
     const fetchBooks = async (term: string) => {

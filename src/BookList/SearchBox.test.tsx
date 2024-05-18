@@ -1,34 +1,55 @@
-import { describe, it, vi, expect } from "vitest";
-import { render, screen } from "@testing-library/react";
+import { describe, it, expect } from "vitest";
+import { act, render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import { configureStore } from "@reduxjs/toolkit";
+import { Provider } from "react-redux";
 import SearchBox from "./SearchBox";
+import bookListReducer from '../redux/bookListSlice';
 
 describe('SearchBox', () => {
   it('renders input', async () => {
-    const props = {
-      term: '',
-      onSearch: vi.fn(),
-    };
+    const mockStore = configureStore({
+      reducer: {
+        list: bookListReducer,
+      },
+    });
 
-    render(<SearchBox { ...props } />)
+    render(
+      <Provider store={ mockStore }>
+        <SearchBox />
+      </Provider>
+    );
 
     const input = screen.getByRole('textbox');
-    await userEvent.type(input, 'domain');
 
-    expect(props.onSearch).toHaveBeenCalled();
+    await act(async () => {
+      await userEvent.type(input, 'domain');
+    });
+    
+    const state = mockStore.getState();
+    expect(state.list.term).toEqual('domain');
   });
 
   it('trim empty strings', async () => {
-    const props = {
-      term: '',
-      onSearch: vi.fn(),
-    };
+    const mockStore = configureStore({
+      reducer: {
+        list: bookListReducer,
+      },
+    });
 
-    render(<SearchBox { ...props } />);
+    render(
+      <Provider store={ mockStore }>
+        <SearchBox />
+      </Provider>
+    );
 
     const input = screen.getByRole('textbox');
-    await userEvent.type(input, '  ');
 
-    expect(props.onSearch).not.toHaveBeenCalled();
+    await act(async() => {
+      await userEvent.type(input, '  ');
+    });
+
+    const state = mockStore.getState();
+    expect(state.list.term).toEqual('');
   });
 });
