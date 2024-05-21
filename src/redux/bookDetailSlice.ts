@@ -34,7 +34,9 @@ const initialState: BookDetailType = {
 const bookDetailSlice = createSlice({
   name: 'bookDetail',
   initialState: initialState,
+
   reducers: {},
+
   extraReducers: (builder) => {
     builder
       .addCase(fetchBookDetail.pending, (state) => {

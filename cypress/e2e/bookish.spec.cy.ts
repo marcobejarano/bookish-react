@@ -6,6 +6,8 @@ import {
   goToNthBookInTheList,
   checkBookDetail,
   performSearch,
+  composeReview,
+  checkReview,
 } from './helpers';
 
 before(() => {
@@ -14,6 +16,10 @@ before(() => {
 
 beforeEach(() => {
   goToApp();
+});
+
+afterEach(() => {
+  cy.request('DELETE', 'http://localhost:8080/books/1/reviews');
 });
 
 describe('Bookish application', () => {
@@ -39,5 +45,12 @@ describe('Bookish application', () => {
   it('Searches for a title', () => {
     performSearch('design');
     checkBookListWith(['Domain-driven design']);
+  });
+
+  it('Write a review for a book', () => {
+    goToNthBookInTheList(0);
+    checkBookDetail('Refactoring');
+    composeReview('Marco Bejarano', 'Excellent work!');
+    checkReview();
   });
 });

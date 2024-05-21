@@ -41,3 +41,14 @@ export const performSearch = (term: string) => {
   cy.get('[data-test="search"] input').type(term);
 };
 
+export const composeReview = (name: string, content: string) => {
+  cy.get('input[name="name"]').type('Marco Bejarano');
+  cy.get('textarea[name="content"]').type('Excellent work!');
+  cy.get('button[name="submit"]').click();
+};
+
+export const checkReview = () => {
+  cy.get('div[data-testid="reviews-container"]')
+    .find('div[data-testid="review"]')
+    .should('have.length', 1);
+};

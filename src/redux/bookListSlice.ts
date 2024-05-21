@@ -30,7 +30,7 @@ const initialState: AppStateType = {
   term: '',
 };
 
-export const bookListSlice = createSlice({
+const bookListSlice = createSlice({
   name: 'books',
   initialState: initialState,
 
