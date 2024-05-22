@@ -1,6 +1,7 @@
 import {
   fetchBooks,
   goToApp,
+  deleteReviewsFromFirstBook,
   checkAppTitle,
   checkBookListWith,
   goToNthBookInTheList,
@@ -19,7 +20,7 @@ beforeEach(() => {
 });
 
 afterEach(() => {
-  cy.request('DELETE', 'http://localhost:8080/books/1/reviews');
+  deleteReviewsFromFirstBook();
 });
 
 describe('Bookish application', () => {
@@ -51,6 +52,6 @@ describe('Bookish application', () => {
     goToNthBookInTheList(0);
     checkBookDetail('Refactoring');
     composeReview('Marco Bejarano', 'Excellent work!');
-    checkReview();
+    checkReview("Excellent work!");
   });
 });

@@ -4,7 +4,14 @@
       "name": "Refactoring",
       "id": 1,
       "description": "Martin Fowler's Refactoring defined core ideas and techniques ...",
-      "reviews": []
+      "reviews": [
+        {
+          "id": 1,
+          "bookId": 1,
+          "name": "Marco Bejarano",
+          "content": "Excellent work!"
+        }
+      ]
     },
     {
       "name": "Domain-driven design",

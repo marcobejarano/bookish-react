@@ -14,6 +14,10 @@ export const goToApp = () => {
   cy.visit('/', { timeout: 120000 });
 };
 
+export const deleteReviewsFromFirstBook = () => {
+  cy.request('DELETE', 'http://localhost:8080/books/1/reviews');
+};
+
 export const checkAppTitle = (title: string) => {
   cy.get('h2[data-test="heading"]').contains(title);
 };
@@ -23,7 +27,7 @@ export const checkBookListWith = (expectation: string[] = []) => {
   cy.get('div.book-item').should((books) => {
     expect(books).to.have.length(expectation.length);
 
-    const titles = [...books].map(x => x.querySelector('h2').innerHTML);
+    const titles = [...books].map(x => x.querySelector('h2')?.innerHTML);
     expect(titles).to.deep.equal(expectation);
   });
 };
@@ -47,7 +51,7 @@ export const composeReview = (name: string, content: string) => {
   cy.get('button[name="submit"]').click();
 };
 
-export const checkReview = () => {
+export const checkReview = (content: string) => {
   cy.get('div[data-testid="reviews-container"]')
     .find('div[data-testid="review"]')
     .should('have.length', 1);
